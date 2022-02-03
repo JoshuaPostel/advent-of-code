@@ -1,7 +1,5 @@
 #include <stdio.h>
 #include <fstream>
-#include <array>
-#include <algorithm>
 
 int main() {
     std::ifstream commands("input.txt");
