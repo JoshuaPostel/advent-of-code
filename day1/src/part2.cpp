@@ -3,8 +3,7 @@
 #include <array>
 #include <algorithm>
 
-int main() {
-    std::ifstream depths("input.txt");
+int windowed_increase_count(std::fstream& depths) {
 
     int depth;
     // TODO not sure what the difference is here
@@ -16,7 +15,6 @@ int main() {
     // read in first four ints
     for (int i=0; i<4; i++) {
         depths >> window[i];
-        // printf("%d: %d\n", i, window[i]);
     }
 
 
@@ -42,16 +40,14 @@ int main() {
         }
     }
 
+    return increase_count;
+}
+
+int main() {
+    std::fstream foo("input.txt");
+
+    int increase_count = windowed_increase_count(foo);
     printf("increase_count: %d\n", increase_count);
 
     return 0;
 }
-
-// unused code:
-// std::ofstream measurements("output.txt");
-
-// char first_char = depths.get(); 
-// printf("input.txt first character: %c\n", first_char);
-//
-// printf("first depth: %d\n", previous_depth);
-// measurements << previous_depth << " (N/A - no previous measurement)\n";
