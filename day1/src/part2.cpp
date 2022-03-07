@@ -42,12 +42,3 @@ int windowed_increase_count(std::fstream& depths) {
 
     return increase_count;
 }
-
-int main() {
-    std::fstream foo("input.txt");
-
-    int increase_count = windowed_increase_count(foo);
-    printf("increase_count: %d\n", increase_count);
-
-    return 0;
-}

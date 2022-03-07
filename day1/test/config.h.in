@@ -1,0 +1,5 @@
+namespace config {
+
+static constexpr auto test_resource_dir = "@TEST_RESOURCE_DIR@";	
+
+}
