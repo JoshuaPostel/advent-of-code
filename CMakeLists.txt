@@ -7,3 +7,4 @@ add_subdirectory("${PROJECT_SOURCE_DIR}/extern/googletest" "extern/googletest")
 
 add_subdirectory(day1)
 add_subdirectory(day2)
+add_subdirectory(day3)

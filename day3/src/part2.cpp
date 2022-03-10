@@ -6,6 +6,7 @@
 #include <vector>
 #include <algorithm>
 #include <tuple>
+#include "day3.h"
 
 using namespace std;
 
@@ -49,8 +50,7 @@ vector<bitset<size>> keep_least_common(vector<bitset<size>> bytes_vec, int index
     }
 }
 
-int main() {
-    ifstream bytes("input.txt");
+Ratings get_ratings(fstream& bytes) {
 
     array<int, size> on_bit_counter = { 0 };
     vector<bitset<size>> bytes_vec;
@@ -80,9 +80,9 @@ int main() {
         index += 1;
     }
     long int co2_scrubber_rating = bytes_vec2.back().to_ulong();
-    printf("co2 scrubber rating: %li\n", co2_scrubber_rating);
 
-    printf("solution: %li\n", co2_scrubber_rating * oxygen_generator_rating);
-
-    return 0;
+    Ratings ratings;
+    ratings.oxygen_generator = oxygen_generator_rating;
+    ratings.co2_scrubber = co2_scrubber_rating;
+    return ratings;
 }
