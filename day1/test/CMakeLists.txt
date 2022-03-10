@@ -1,5 +1,3 @@
-add_subdirectory("${PROJECT_SOURCE_DIR}/extern/googletest" "extern/googletest")
-
 add_executable(day1_test Day1Test.cpp)
 target_link_libraries(day1_test gtest gtest_main day1)
 

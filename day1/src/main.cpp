@@ -4,7 +4,7 @@
 
 int main(int argc, char *argv[]) {
   if (argc != 2) {
-    std::cout << "usage: ./results my_filename.txt\n";
+    std::cout << "usage: " << argv[0] << " my_filename.txt\n";
   } else {
     
     std::fstream part1_input_file(argv[1]);
@@ -17,4 +17,5 @@ int main(int argc, char *argv[]) {
 
   }
 
+  return 0;
 }
