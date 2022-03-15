@@ -3,6 +3,7 @@
 #include <fstream>
 #include <iostream>
 #include <vector>
+#include <algorithm>
 
 std::vector<int> get_draws(std::fstream &input_file) {
   std::vector<int> draws;
@@ -50,7 +51,7 @@ parse_input(std::fstream &input_file) {
     std::string skip_line;
     std::getline(input_file, skip_line);
     Bingo bingo = get_board(input_file);
-    bingo.print();
+    //bingo.print();
     bingos.push_back(bingo);
   }
 
@@ -58,23 +59,52 @@ parse_input(std::fstream &input_file) {
 }
 
 int run_bingo(std::vector<int> draws, std::vector<Bingo> boards) {
-  for (int draw : draws) {
-    std::cout << "draw: " << draw << "\n";
-    for (Bingo board : boards) {
+  // TODO investigate: cannot mutate inner forloop
+  // without this approach we are playing out all the boards even though we can
+  // stop after the first winning round
+  //  for (int draw : draws) {
+  //    std::cout << "draw: " << draw << "\n";
+  //    for (Bingo board : boards) {
 
-      std::cout << "before\n";
-      board.print();
+  std::cout << "n_boards: " << boards.size() << "\n";
+  std::vector<int> turns;
+  std::vector<int> scores;
+  for (Bingo board : boards) {
+    int turn_counter = 0;
+    for (int draw : draws) {
+      turn_counter += 1;
+      // std::cout << "draw: " << draw << "\n";
+
+      // std::cout << "before\n";
+      //board.print();
       int score = board.mark(draw);
-      std::cout << "after\n";
-      board.print();
-      std::cout << "\n";
+      // std::cout << "after\n";
+      // board.print();
+      //std::cout << "\n";
       if (score != 0) {
-        std::cout << "done\n";
-        return score;
+        // std::cout << "done\n";
+        turns.push_back(turn_counter);
+        scores.push_back(score);
+        break;
       }
     }
   }
-  return 0;
+  for (size_t i = 0; i < turns.size(); i += 1) {
+    std::cout << "board " << i << ": turn: " << turns[i]
+              << " score: " << scores[i] << "\n";
+  }
+  auto winning_turn = *std::min_element(turns.begin(), turns.end());
+  std::cout << "winnin_turn: " << winning_turn << "\n";
+  // TODO do this the smarter way
+  std::vector<int> won_on_winning_turn;
+  for (size_t i = 0; i < turns.size(); i += 1) {
+    if (turns[i] == winning_turn) {
+      won_on_winning_turn.push_back(scores[i]);
+    }
+  }
+  auto winning_score = *std::max_element(won_on_winning_turn.begin(), won_on_winning_turn.end());
+  return winning_score;
+  //return 0;
 }
 
 int main() {
@@ -91,8 +121,10 @@ int main() {
   //  std::cout << "mark: " << my_board.mark(1) << "\n";
   //  my_board.print();
 
+//  std::fstream input_file(
+//      "/home/jp/proj/aoc/day4/test/resources/example_input.txt");
   std::fstream input_file(
-      "/home/jp/proj/aoc/day4/test/resources/example_input.txt");
+      "/home/jp/proj/aoc/day4/test/resources/full_input.txt");
   std::vector<int> draws;
   std::vector<Bingo> boards;
   std::tie(draws, boards) = parse_input(input_file);

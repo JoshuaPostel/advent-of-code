@@ -66,7 +66,7 @@ impl ffi::Bingo {
     }
 
     fn has_bingo(&self) -> bool {
-        println!("checking for bingo");
+        //println!("checking for bingo");
         for row in self.marked.iter() {
             if row.iter().all(|x| *x) {
                 return true;
