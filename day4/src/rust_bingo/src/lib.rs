@@ -25,8 +25,8 @@ mod ffi {
 
         fn plus_two(val: i32) -> i32;
 
-        fn new_board() -> Bingo;
-        fn score(self: &Bingo) -> i32;
+        //fn new_board() -> Bingo;
+        fn score(self: &Bingo, just_called: i32) -> i32;
     }
 }
 
@@ -40,7 +40,7 @@ impl ffi::Bingo {
             }
         }
         if self.has_bingo() {
-            self.score()
+            self.score(number.into())
         } else {
             0
         }
@@ -57,7 +57,7 @@ impl ffi::Bingo {
                     text.push('O');
                 }
                 text.push(' ');
-                if &10 <= element {
+                if element <= &10 {
                     text.push(' ');
                 }
             }
