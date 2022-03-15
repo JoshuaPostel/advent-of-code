@@ -19,29 +19,68 @@ std::vector<int> get_draws(std::fstream& input_file) {
   // capture last number
   int draw = std::stoi(first_line);
   draws.push_back(draw);
-  for (size_t i = 0; i < draws.size(); i += 1) {
-    std::cout << "first line vec: " << draws[i] << "\n";
-  }
+//  for (size_t i = 0; i < draws.size(); i += 1) {
+//    std::cout << "first line vec: " << draws[i] << "\n";
+//  }
   return draws;
 }
 
+Bingo get_board(std::fstream& input_file) {
+  std::array<std::array<uint8_t, 5>, 5> board;
+  for (int i = 0; i < 5; i+=1) {
+    std::string line;
+    std::getline(input_file, line); 
+    for (int j = 0; j < 5; j+=1) {
+      board[i][j] = std::stoi(line.substr(j * 3, (j + 1) * 3));
+    }
+  }
+  Bingo bingo;
+  bingo.board = board;
+  std::array<bool, 5> empty = {false, false, false, false, false};
+  bingo.marked = {empty, empty, empty, empty, empty};
+  return bingo;
+}
+
+std::tuple<std::vector<int>, std::vector<Bingo>> parse_input(std::fstream& input_file) {
+  std::vector<int> draws = get_draws(input_file);
+  std::vector<Bingo> bingos;
+
+  while (input_file.peek() != EOF) {
+    std::string skip_line;
+    std::getline(input_file, skip_line); 
+    Bingo bingo = get_board(input_file);
+    bingo.print();
+    bingos.push_back(bingo);
+  }
+
+  return { draws, bingos };
+}
+
 int main() {
-  int a = 4;
-  std::cout << "a: " << a << "\n";
-  std::cout << "a plus two: " << plus_two(a) << "\n";
-  std::cout << "a rust plus one: " << plus_one(a) << "\n";
-  std::cout << "a rust times two: " << times_two(a) << "\n";
+//  int a = 4;
+//  std::cout << "a: " << a << "\n";
+//  std::cout << "a plus two: " << plus_two(a) << "\n";
+//  std::cout << "a rust plus one: " << plus_one(a) << "\n";
+//  std::cout << "a rust times two: " << times_two(a) << "\n";
+  // TODO why does commenting this out mess up imports?
   Bingo my_board = new_board();
-  my_board.print();
-  std::cout << "mark: " << my_board.mark(0) << "\n";
-  my_board.print();
-  std::cout << "mark: " << my_board.mark(1) << "\n";
-  my_board.print();
+//  my_board.print();
+//  std::cout << "mark: " << my_board.mark(0) << "\n";
+//  my_board.print();
+//  std::cout << "mark: " << my_board.mark(1) << "\n";
+//  my_board.print();
 
 
 
 
   std::fstream input_file("/home/jp/proj/aoc/day4/test/resources/example_input.txt");
-  get_draws(input_file);
+  std::vector<int> draws;
+  std::vector<Bingo> bingos;
+  std::tie(draws, bingos) = parse_input(input_file);
+//  std::vector<int> draws = get_draws(input_file);
+//  std::string skip_line;
+//  std::getline(input_file, skip_line); 
+//  Bingo bingo = get_board(input_file);
+//  bingo.print();
 }
 

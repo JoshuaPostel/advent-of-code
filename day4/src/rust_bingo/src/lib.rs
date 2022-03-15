@@ -50,14 +50,14 @@ impl ffi::Bingo {
         for (i, row) in self.board.iter().enumerate() {
             let mut text = String::from("");
             for (j, element) in row.iter().enumerate() {
-                text.push_str(&element.to_string());
                 if self.marked[i][j] {
-                    text.push('X');
+                    text.push('x');
                 } else {
-                    text.push('O');
+                    text.push('o');
                 }
+                text.push_str(&element.to_string());
                 text.push(' ');
-                if element <= &10 {
+                if element < &10 {
                     text.push(' ');
                 }
             }
