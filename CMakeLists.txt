@@ -20,5 +20,3 @@ add_subdirectory(day2)
 add_subdirectory(day3)
 
 add_subdirectory(day4)
-
-include_directories(day4/src/include)
