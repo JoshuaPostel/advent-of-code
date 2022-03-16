@@ -1,10 +1,10 @@
-#include "rust_bingo.h"
 #include <fstream>
 #include <iostream>
 #include <vector>
 #include <algorithm>
 #include <stdint.h>
 #include "day4.h"
+#include "rust_bingo.h"
 
 std::vector<int> get_draws(std::fstream &input_file) {
   std::vector<int> draws;
