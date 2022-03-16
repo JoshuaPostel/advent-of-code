@@ -1,3 +1,8 @@
+# REQUIREMENTS
+# TODO cant figure out how to set this in cmake itself
+# export CXX=clang++-13
+# export CC=clang-13
+
 cmake_minimum_required(VERSION 3.15)
 project(AoC)
 

@@ -9,23 +9,13 @@ mod ffi {
     }
 
     extern "Rust" {
-        //type Bingo;
         // if the mark results in a bingo, return SCORE otherwise return zero
         fn mark(self: &mut Bingo, number: u8) -> i32;
         fn print(self: &Bingo);
-
-        fn plus_one(val: i32) -> i32;
-        fn times_two(val: i32) -> i32;
     }
 
     unsafe extern "C++" {
         include!("day4.h");
-
-        //fn new(file_path: String) -> Bingo;
-
-        fn plus_two(val: i32) -> i32;
-
-        //fn new_board() -> Bingo;
         fn score(self: &Bingo, just_called: i32) -> i32;
     }
 }
@@ -84,16 +74,4 @@ impl ffi::Bingo {
         }
         false
     }
-}
-
-fn times_two(val: i32) -> i32 {
-    let mut result = 0;
-    for _ in 0..val {
-        result = ffi::plus_two(result);
-    }
-    result
-}
-
-fn plus_one(val: i32) -> i32 {
-    val + 1
 }

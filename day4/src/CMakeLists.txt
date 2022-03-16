@@ -6,7 +6,7 @@ target_include_directories(day${DayNumber} INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}
 
 
 include_directories(${CMAKE_BINARY_DIR}/day4/src/rust_bingo)
-message(STATUS "cmake_binary_dir: " ${CMAKE_BINARY_DIR})
+#message(STATUS "cmake_binary_dir: " ${CMAKE_BINARY_DIR})
 
 include_directories(include)
 
