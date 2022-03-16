@@ -10,6 +10,8 @@ enable_testing()
 include(GoogleTest)
 add_subdirectory("${PROJECT_SOURCE_DIR}/extern/googletest" "extern/googletest")
 
+# LTO blocked by regression between
+# RUST_FLAGS "-Clinker-plugin-lto" and clang-13 regression
 #include(CheckIPOSupported)
 #check_ipo_supported(RESULT supported OUTPUT error)
 #if(supported)

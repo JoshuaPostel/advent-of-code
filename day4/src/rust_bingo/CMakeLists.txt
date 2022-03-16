@@ -1,8 +1,8 @@
 set(CARGO_CMD cargo build --release --verbose)
 set(TARGET_DIR "release")
 
-# TODO uncomment when adding LTO
-# set(RUST_FLAGS "-Clinker-plugin-lto" "Clinker=clang-13" "-Clink-arg=fuse-ld=lld-13")
+# if LTO enabled, currently looks like it might be a clang-13 regerssion
+#set(RUST_FLAGS "-Clinker-plugin-lto" "-Clinker=clang-13" "-Clink-arg=-fuse-ld=lld-13")
 
 set(RUST_BINGO_LIB "${CMAKE_CURRENT_BINARY_DIR}/${TARGET_DIR}/librust_bingo.a")
 
@@ -16,6 +16,7 @@ add_custom_command(
     COMMAND CARGO_TARGET_DIR=${CMAKE_CURRENT_BINARY_DIR} RUSTFLAGS="${RUST_FLAGS}" ${CARGO_CMD}
     COMMAND cp ${CMAKE_CURRENT_BINARY_DIR}/cxxbridge/rust_bingo/src/lib.rs.cc ${RUST_BINGO_CXX}
     COMMAND cp ${CMAKE_CURRENT_BINARY_DIR}/cxxbridge/rust_bingo/src/lib.rs.h ${CMAKE_CURRENT_BINARY_DIR}/rust_bingo.h
+    DEPENDS src/lib.rs
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
 )
 

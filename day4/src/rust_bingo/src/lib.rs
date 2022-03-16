@@ -1,5 +1,3 @@
-use cxx::let_cxx_string;
-
 #[cxx::bridge]
 mod ffi {
 
